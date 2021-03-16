@@ -35,10 +35,11 @@ public class HomeFragment extends Fragment {
     private List<String> timeList = new ArrayList<String>();
 
     //private Time time;
+    private LocalDateTime dateFrom;
+    private LocalDateTime dateTo;
+
     private String time;
     private String activity;
-    private String stringDateFrom;
-    private String stringDateTo;
     private String location;
     private String people;
 
@@ -97,17 +98,23 @@ public class HomeFragment extends Fragment {
                 //split = reminder.split("\\s+");
                 split = new ArrayList<>(Arrays.asList(reminder.split("\\s+")));
                 timeList = new ArrayList<String>();
-                stringDateFrom = "";
-                stringDateTo = "";
+                dateFrom = null;
+                dateTo = null;
+                //Testing
                 for (String s : split) {
                     Log.d("Split list", s);
                 }
                 checkWord();
+                //Testing
                 for (String s : split) {
                     Log.d("Split list", s);
                 }
-                Log.d("Date From", stringDateFrom);
-                Log.d("Date To", stringDateTo);
+                //Testing
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                String formatFrom = dateFrom.format(formatter);
+                String formatTo = dateTo.format(formatter);
+                Log.d("From", formatFrom);
+                Log.d("To", formatTo);
                 //keyWord(reminder);
                 buttonOut("success");
             }
@@ -187,16 +194,18 @@ public class HomeFragment extends Fragment {
             if (timeCount == 1) {
                 newTime = checkTime(s);
                 if (newTime != "88:88") {
-                    if (stringDateFrom == "") {
-                        stringDateFrom = newTime;
-                        //TEMPORARY VARIABLE TO TEST SQL
-                        LocalDate date = LocalDate.now();
+                    if (dateFrom == null) {
+                        LocalDate date = LocalDate.now(); //TEMPORARY VARIABLE TO TEST SQL
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                        String formattedString = date.format(formatter);
-                    } else if (stringDateTo == "") {
-                        stringDateTo = newTime;
-                        //TEMPORARY VARIABLE TO TEST SQL
-                        LocalDate date = LocalDate.now();
+                        String formattedString = date.format(formatter) + " " + newTime;
+                        DateTimeFormatter formatted = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        dateFrom = LocalDateTime.parse(formattedString, formatted);
+                    } else if (dateTo == null) {
+                        LocalDate date = LocalDate.now(); //TEMPORARY VARIABLE TO TEST SQL
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        String formattedString = date.format(formatter) + " " + newTime;
+                        DateTimeFormatter formatted = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        dateTo = LocalDateTime.parse(formattedString, formatted);
                     }
                     //timeList.add(newTime);
                     removeItem.add(Integer.toString(totalCount-1));
