@@ -88,10 +88,10 @@ public class HomeFragment extends Fragment {
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reminder = textReminder.getText().toString();
+                reminder = (textReminder.getText().toString()).toLowerCase();
                 //split = reminder.split("\\s+");
                 split = new ArrayList<>(Arrays.asList(reminder.split("\\s+")));
-                //timeList = null;
+                timeList = new ArrayList<String>();
                 for (String s : split) {
                     Log.d("Split list", s);
                 }
@@ -123,6 +123,13 @@ public class HomeFragment extends Fragment {
                 format = (text.substring(0, 2)) + ":" + (text.substring(2, 4));
                 return format;
             }
+        } else if (text.length() == 3) {
+            if ((Integer.parseInt(text.substring(1, 3))) > 59) {
+                return ("99:99");
+            } else {
+                format = ("0" + text.substring(0, 1)) + ":" + (text.substring(1, 3));
+                return format;
+            }
         } else if (text.length() == 2) {
             if (Integer.parseInt(text) > 23) {
                 return ("99:99");
@@ -134,7 +141,7 @@ public class HomeFragment extends Fragment {
             format = ("0" + text + ":00");
             return format;
         }
-        format = "99:99";
+        format = "88:88";
         return format;
     }
 
@@ -144,7 +151,7 @@ public class HomeFragment extends Fragment {
         String newTime = "";
         int count = 0;
         for (char c : characters) {
-            if ((!Character.isDigit(c)) && (count > 1)) {
+            if ((!Character.isDigit(c)) && (count > 1) && (c != ':')) {
                 break;
             }
             if (Character.isDigit(c)){
@@ -172,8 +179,8 @@ public class HomeFragment extends Fragment {
         String newTime;
         for (String s: split) {
             if (timeCount == 1) {
-                newTime = checkTime (s);
-                if (newTime != null) {
+                newTime = checkTime(s);
+                if (newTime != "88:88") {
                     timeList.add(newTime);
                     removeItem.add(Integer.toString(totalCount-1));
                     removeItem.add(Integer.toString(totalCount));
@@ -181,16 +188,11 @@ public class HomeFragment extends Fragment {
                 newTime = "";
                 timeCount = 0;
             }
-            if (s.equals("at") || s.equals("from") || s.equals("until") || s.equals("till") || s.equals("to")) {
+            if (s.equals("at") || s.equals("from") || s.equals("until") || s.equals("till") || s.equals("to") || s.equals("before")) {
                 timeCount = 1;
             }
             totalCount = totalCount + 1;
         }
-        /*
-        for (String rem: removeItem) {
-            split.remove(Integer.parseInt(rem));
-        }
-        */
         for (int i = removeItem.size() - 1; i >= 0; i--) {
             split.remove(Integer.parseInt(removeItem.get(i)));
         }
