@@ -1,12 +1,14 @@
 package uk.ac.wlv.augmentedmemory;
 
-import java.util.Date;
+//import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Reminder {
     private UUID mId;
     private String mActivity;
-    private Date mDate;
+    private LocalDateTime mDateFrom;
+    private LocalDateTime mDateTo;
     private String mTime;
     private String mLocation;
     private String mPeople;
@@ -31,12 +33,20 @@ public class Reminder {
         mActivity = activity;
     }
 
-    public Date getDate() {
-        return mDate;
+    public LocalDateTime getDateFrom() {
+        return mDateFrom;
     }
 
-    public void setDate(Date date) {
-        mDate = date;
+    public void setDateFrom(LocalDateTime dateTo) {
+        mDateFrom = dateTo;
+    }
+
+    public LocalDateTime getDateTo() {
+        return mDateTo;
+    }
+
+    public void setDateTo(LocalDateTime dateTo) {
+        mDateTo = dateTo;
     }
 
     public String getTime() {

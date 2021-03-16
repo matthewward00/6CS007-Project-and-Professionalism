@@ -9,6 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.util.Log;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
@@ -33,7 +37,8 @@ public class HomeFragment extends Fragment {
     //private Time time;
     private String time;
     private String activity;
-    private String date;
+    private String stringDateFrom;
+    private String stringDateTo;
     private String location;
     private String people;
 
@@ -92,6 +97,8 @@ public class HomeFragment extends Fragment {
                 //split = reminder.split("\\s+");
                 split = new ArrayList<>(Arrays.asList(reminder.split("\\s+")));
                 timeList = new ArrayList<String>();
+                stringDateFrom = "";
+                stringDateTo = "";
                 for (String s : split) {
                     Log.d("Split list", s);
                 }
@@ -99,9 +106,8 @@ public class HomeFragment extends Fragment {
                 for (String s : split) {
                     Log.d("Split list", s);
                 }
-                for (String s : timeList) {
-                    Log.d("Split time", s);
-                }
+                Log.d("Date From", stringDateFrom);
+                Log.d("Date To", stringDateTo);
                 //keyWord(reminder);
                 buttonOut("success");
             }
@@ -181,7 +187,18 @@ public class HomeFragment extends Fragment {
             if (timeCount == 1) {
                 newTime = checkTime(s);
                 if (newTime != "88:88") {
-                    timeList.add(newTime);
+                    if (stringDateFrom == "") {
+                        stringDateFrom = newTime;
+                        //TEMPORARY VARIABLE TO TEST SQL
+                        LocalDate date = LocalDate.now();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        String formattedString = date.format(formatter);
+                    } else if (stringDateTo == "") {
+                        stringDateTo = newTime;
+                        //TEMPORARY VARIABLE TO TEST SQL
+                        LocalDate date = LocalDate.now();
+                    }
+                    //timeList.add(newTime);
                     removeItem.add(Integer.toString(totalCount-1));
                     removeItem.add(Integer.toString(totalCount));
                 }

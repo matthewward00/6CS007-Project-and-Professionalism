@@ -97,7 +97,8 @@ public class ReminderControl {
         ContentValues values = new ContentValues();
         values.put(DbSchema.ReminderTable.Cols.UUID, reminder.getId().toString());
         values.put(DbSchema.ReminderTable.Cols.ACTIVITY, reminder.getActivity());
-        values.put(DbSchema.ReminderTable.Cols.DATE, reminder.getDate().getTime());
+        values.put(DbSchema.ReminderTable.Cols.DATEFROM, reminder.getDateFrom().toString());
+        values.put(DbSchema.ReminderTable.Cols.DATETO, reminder.getDateTo().toString());
         values.put(DbSchema.ReminderTable.Cols.TIME, reminder.getTime());
         values.put(DbSchema.ReminderTable.Cols.LOCATION, reminder.getLocation());
         values.put(DbSchema.ReminderTable.Cols.PEOPLE, reminder.getPeople());

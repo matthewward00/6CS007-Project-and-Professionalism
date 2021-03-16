@@ -16,7 +16,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("create table " + DbSchema.ReminderTable.NAME + "(" +
                 " _id integer primary key autoincrement, " +
                 DbSchema.ReminderTable.Cols.ACTIVITY + ", " +
-                DbSchema.ReminderTable.Cols.DATE + ", " +
+                DbSchema.ReminderTable.Cols.DATEFROM + ", " +
+                DbSchema.ReminderTable.Cols.DATETO + ", " +
                 DbSchema.ReminderTable.Cols.TIME + ", " +
                 DbSchema.ReminderTable.Cols.LOCATION + ", " +
                 DbSchema.ReminderTable.Cols.PEOPLE +
